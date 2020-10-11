@@ -511,13 +511,17 @@ void draw_detections(image im, int num, float thresh, box *boxes, float **probs,
             printf("%s: %.0f%%", names[class_id], prob * 100);
 			
 			// mk start
-			printf("Bounding Box: Left=%d, Top=%d, Right=%d, Bottom=%d\n", left, top, right, bot);
+			printf("ITEM:%s,%.0f%%,%d,%d,%d,%d\n", names[class_id], prob * 100, left, top, right, bot);
 			
 			FILE *fp;
 			fp = fopen("/content/darknet/predictions.csv", "a");
+			if (fp == NULL)
+				printf("NULL fp\n");
             fprintf(fp, "%s,%.0f%%,%d,%d,%d,%d\n", names[class_id], prob * 100, left, top, right, bot);
 			fclose(fp);
-			
+			printf("pwd:\t");
+			system("pwd");
+			printf("\n");
 			// mk end
 			
             //printf(" - id: %d, x_center: %d, y_center: %d, width: %d, height: %d",
