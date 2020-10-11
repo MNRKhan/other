@@ -359,6 +359,14 @@ void draw_detections_v3(image im, detection *dets, int num, float thresh, char *
                         round(selected_detections[i].det.bbox.w*im.w), round(selected_detections[i].det.bbox.h*im.h));
                 else
                     printf("\n");
+                    
+                			
+				// mk start
+				FILE *fp;
+				fp = fopen("/content/darknet/predictions.csv", "a");
+		        fprintf(fp, "%s,%.0f%%,%d,%d,%d,%d\n", names[j], selected_detections[i].det.prob[j] * 100, round((selected_detections[i].det.bbox.x - selected_detections[i].det.bbox.w / 2)*im.w), round((selected_detections[i].det.bbox.y - selected_detections[i].det.bbox.h / 2)*im.h), round(selected_detections[i].det.bbox.w*im.w), round(selected_detections[i].det.bbox.h*im.h));
+				fclose(fp);
+				// mk end
             }
         }
     }
@@ -509,21 +517,7 @@ void draw_detections(image im, int num, float thresh, box *boxes, float **probs,
             if(top < 0) top = 0;
             if(bot > im.h-1) bot = im.h-1;
             printf("%s: %.0f%%", names[class_id], prob * 100);
-			
-			// mk start
-			printf("ITEM:%s,%.0f%%,%d,%d,%d,%d\n", names[class_id], prob * 100, left, top, right, bot);
-			
-			FILE *fp;
-			fp = fopen("/content/darknet/predictions.csv", "a");
-			if (fp == NULL)
-				printf("NULL fp\n");
-            fprintf(fp, "%s,%.0f%%,%d,%d,%d,%d\n", names[class_id], prob * 100, left, top, right, bot);
-			fclose(fp);
-			printf("pwd:\t");
-			system("pwd");
-			printf("\n");
-			// mk end
-			
+
             //printf(" - id: %d, x_center: %d, y_center: %d, width: %d, height: %d",
             //    class_id, (right + left) / 2, (bot - top) / 2, right - left, bot - top);
 
