@@ -343,7 +343,7 @@ void draw_detections_v3(image im, detection *dets, int num, float thresh, char *
 		// mk start
 		FILE *fp;
 		fp = fopen("/content/darknet/predictions.csv", "a");
-		fprintf(fp, "%s,%.0f%%,%4.0f,%4.0f,%4.0f,%4.0f\n", names[best_class], selected_detections[i].det.prob[best_class] * 100, round((selected_detections[i].det.bbox.x - selected_detections[i].det.bbox.w / 2)*im.w), round((selected_detections[i].det.bbox.y - selected_detections[i].det.bbox.h / 2)*im.h), round(selected_detections[i].det.bbox.w*im.w), round(selected_detections[i].det.bbox.h*im.h));
+		fprintf(fp, "%s,%.0f%%,%.0f,%.0f,%.0f,%.0f\n", names[best_class], selected_detections[i].det.prob[best_class] * 100, round((selected_detections[i].det.bbox.x - selected_detections[i].det.bbox.w / 2)*im.w), round((selected_detections[i].det.bbox.y - selected_detections[i].det.bbox.h / 2)*im.h), round(selected_detections[i].det.bbox.w*im.w), round(selected_detections[i].det.bbox.h*im.h));
 		fclose(fp);
 		// mk end
         
